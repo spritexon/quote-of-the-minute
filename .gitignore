@@ -1,0 +1,13 @@
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor & IDE files
+.vscode/
+.idea/
+
+# Logs and test artifacts
+*.log
+.chrome-test-profile/
+test_*.js

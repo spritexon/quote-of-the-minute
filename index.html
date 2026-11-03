@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quote of the Minute - A mindful single-page website with verified quotes, elegant typography, no repeats, and customizable categories.">
+  <meta name="theme-color" content="#0d1117">
+  <title>Quote of the Minute</title>
+
+  <!-- Google Fonts: Cormorant Garamond, Playfair Display, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top Progress Bar (60s timer) -->
+  <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0" aria-label="Time left until next quote">
+    <div id="progress-bar" class="progress-bar"></div>
+  </div>
+
+  <!-- Ambient Dynamic Background -->
+  <div id="ambient-bg" class="ambient-background" aria-hidden="true"></div>
+
+  <!-- App Wrapper -->
+  <div class="app-layout">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span class="brand-title">Quote of the Minute</span>
+      </div>
+
+      <div class="header-actions">
+        <!-- Favorites Drawer Toggle -->
+        <button id="fav-drawer-toggle" class="icon-btn" aria-label="Open saved favorite quotes" aria-expanded="false" aria-controls="favorites-drawer" title="Favorites">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span id="fav-count-badge" class="badge" aria-label="0 saved quotes">0</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="icon-btn" aria-label="Switch to light theme" title="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Category Filter Chips -->
+    <nav class="category-nav" aria-label="Quote categories">
+      <div class="category-chips" role="tablist">
+        <button class="chip active" role="tab" aria-selected="true" data-category="all">All</button>
+        <button class="chip" role="tab" aria-selected="false" data-category="motivation">Motivation</button>
+        <button class="chip" role="tab" aria-selected="false" data-category="discipline">Discipline</button>
+        <button class="chip" role="tab" aria-selected="false" data-category="success">Success</button>
+        <button class="chip" role="tab" aria-selected="false" data-category="philosophy">Philosophy</button>
+        <button class="chip" role="tab" aria-selected="false" data-category="learning">Learning</button>
+        <button class="chip" role="tab" aria-selected="false" data-category="perseverance">Perseverance</button>
+        <button class="chip" role="tab" aria-selected="false" data-category="mindset">Mindset</button>
+      </div>
+    </nav>
+
+    <!-- Main Quote Section -->
+    <main class="main-content">
+      <article id="quote-card" class="quote-card" aria-live="polite" aria-atomic="true">
+        <!-- Category Pill & Timer Indicator -->
+        <div class="card-meta">
+          <span id="quote-category" class="category-pill">Mindset</span>
+          <span id="timer-label" class="timer-label" aria-hidden="true">60s</span>
+        </div>
+
+        <!-- Decorative Opening Mark -->
+        <div class="decorative-mark" aria-hidden="true">“</div>
+
+        <!-- Quote Text -->
+        <blockquote id="quote-text" class="quote-text">
+          Loading inspiration...
+        </blockquote>
+
+        <!-- Divider -->
+        <div class="quote-divider" aria-hidden="true"></div>
+
+        <!-- Author -->
+        <div class="author-container">
+          <cite id="quote-author" class="quote-author">—</cite>
+        </div>
+      </article>
+
+      <!-- Action Controls Toolbar -->
+      <section class="action-bar" aria-label="Quote actions">
+        <button id="new-quote-btn" class="primary-btn" title="Get another fresh quote (Space or Right Arrow)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          <span>New Quote</span>
+          <span class="key-hint" aria-hidden="true">Space</span>
+        </button>
+
+        <div class="secondary-actions">
+          <!-- Favorite Button -->
+          <button id="favorite-btn" class="action-btn" aria-label="Save quote to favorites" aria-pressed="false" title="Save to favorites">
+            <svg class="heart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </button>
+
+          <!-- Copy Button -->
+          <button id="copy-btn" class="action-btn" aria-label="Copy quote text to clipboard" title="Copy to clipboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </button>
+
+          <!-- Share Button -->
+          <button id="share-btn" class="action-btn" aria-label="Share this quote" title="Share quote">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Keyboard shortcuts tip -->
+      <footer class="app-footer">
+        <p class="shortcut-tip">
+          Tip: Press <kbd>Space</kbd> or <kbd>→</kbd> for a new quote • Auto-refreshes every 60s
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Favorites Slide-in Drawer -->
+  <div id="drawer-backdrop" class="drawer-backdrop" aria-hidden="true"></div>
+  <aside id="favorites-drawer" class="favorites-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+    <div class="drawer-header">
+      <div class="drawer-title-group">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="drawer-heart-icon" aria-hidden="true">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+        <h2 id="drawer-title">Favorites</h2>
+      </div>
+      <button id="drawer-close-btn" class="icon-btn" aria-label="Close favorites drawer" title="Close (Esc)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Empty State -->
+    <div id="favorites-empty" class="favorites-empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="empty-icon" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+      <p class="empty-title">No favorites yet</p>
+      <p class="empty-desc">Click the heart icon on any quote you love to save it here for later.</p>
+    </div>
+
+    <!-- Favorites List -->
+    <ul id="favorites-list" class="favorites-list" aria-label="List of saved quotes"></ul>
+  </aside>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true">
+    <svg class="toast-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span id="toast-message">Message</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="quotes.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
